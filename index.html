@@ -908,6 +908,165 @@ footer {
 }
 .footer-bottom span { color: var(--cyan); }
 
+/* ===== MODAL FORMULARIO ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal-overlay.open {
+  display: flex;
+}
+.modal-box {
+  background: var(--navy-card);
+  border: 1px solid var(--navy-border);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  padding: 40px 36px 36px;
+  position: relative;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 40px rgba(0,188,212,0.1);
+  animation: modal-in 0.25s ease;
+}
+@keyframes modal-in {
+  from { opacity:0; transform: translateY(16px) scale(0.97); }
+  to   { opacity:1; transform: translateY(0) scale(1); }
+}
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: none;
+  border: none;
+  color: var(--gray-mid);
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: color var(--transition);
+  line-height: 1;
+}
+.modal-close:hover { color: var(--white); }
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.modal-header-icon {
+  width: 48px; height: 48px;
+  background: rgba(37,211,102,0.12);
+  border: 1px solid rgba(37,211,102,0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #25d366;
+}
+.modal-header h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.modal-header p {
+  font-size: 0.8rem;
+  color: var(--gray-mid);
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--gray-light);
+  margin-bottom: 8px;
+}
+.form-group label .required {
+  color: var(--cyan);
+  margin-left: 3px;
+}
+.form-group label .optional {
+  color: var(--gray-mid);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.75rem;
+  margin-left: 4px;
+}
+.form-control {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--navy-border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.form-control::placeholder { color: var(--gray-mid); }
+.form-control:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(0,188,212,0.12);
+}
+.form-control.error-field {
+  border-color: #ef4444;
+}
+select.form-control {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+select.form-control option {
+  background: #111827;
+  color: var(--white);
+}
+.form-error {
+  font-size: 0.78rem;
+  color: #ef4444;
+  margin-top: 5px;
+  display: none;
+}
+.form-error.visible { display: block; }
+.btn-send-wa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: #25d366;
+  color: #fff;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 14px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-top: 8px;
+}
+.btn-send-wa:hover {
+  background: #20ba58;
+  box-shadow: 0 0 20px rgba(37,211,102,0.4);
+  transform: translateY(-2px);
+}
+
 /* ===== DIVIDER ===== */
 .circuit-divider {
   width: 100%;
@@ -1156,7 +1315,7 @@ footer {
           <li><i class="fas fa-check"></i> Plataforma accesible y gratuita</li>
           <li><i class="fas fa-check"></i> Documentación técnica oficial</li>
         </ul>
-        <a href="https://arasakarescue.github.io/" target="_blank" class="btn-app">
+        <a href="https://github.com/ArasakaRescue/arasakarescue.github.io" target="_blank" class="btn-app">
           <i class="fab fa-github"></i> Ir al proyecto
         </a>
       </div>
@@ -1273,6 +1432,72 @@ footer {
   </div>
 </footer>
 
+<!-- MODAL FORMULARIO WHATSAPP -->
+<div class="modal-overlay" id="wa-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close-btn" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+    <div class="modal-header">
+      <div class="modal-header-icon"><i class="fab fa-whatsapp"></i></div>
+      <div>
+        <h3>Contanos tu caso</h3>
+        <p>Te responderemos por WhatsApp a la brevedad</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Nombre <span class="required">*</span></label>
+      <input type="text" id="f-nombre" class="form-control" placeholder="Tu nombre o el de la empresa" />
+      <div class="form-error" id="err-nombre">Por favor ingresá tu nombre.</div>
+    </div>
+
+    <div class="form-group">
+      <label>Tipo de unidad <span class="optional">(opcional)</span></label>
+      <select id="f-unidad" class="form-control">
+        <option value="">Seleccioná una opción...</option>
+        <option>Disco rígido (HDD)</option>
+        <option>Disco de estado sólido (SSD)</option>
+        <option>Pendrive / USB</option>
+        <option>Tarjeta SD / microSD</option>
+        <option>Disco externo</option>
+        <option>Memoria flash</option>
+        <option>Otro / No sé</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Tipo de problema <span class="optional">(opcional)</span></label>
+      <select id="f-problema" class="form-control">
+        <option value="">Seleccioná una opción...</option>
+        <option>Archivos eliminados accidentalmente</option>
+        <option>Formateo accidental</option>
+        <option>El dispositivo no es reconocido</option>
+        <option>Daño físico o golpe</option>
+        <option>Falla eléctrica o cortocircuito</option>
+        <option>Error de sistema / partición</option>
+        <option>Ruido extraño al funcionar</option>
+        <option>Otro / No sé</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>¿Hace cuánto ocurrió? <span class="optional">(opcional)</span></label>
+      <select id="f-tiempo" class="form-control">
+        <option value="">Seleccioná una opción...</option>
+        <option>Hoy / Ayer</option>
+        <option>Hace unos días</option>
+        <option>Hace una semana</option>
+        <option>Hace 2-4 semanas</option>
+        <option>Hace más de un mes</option>
+        <option>No recuerdo / Hace mucho</option>
+      </select>
+    </div>
+
+    <button class="btn-send-wa" id="btn-send-wa">
+      <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+    </button>
+  </div>
+</div>
+
 <script>
 // ===== PARTICLES =====
 const canvas = document.getElementById('particles-canvas');
@@ -1370,6 +1595,71 @@ window.addEventListener('scroll', () => {
   } else {
     nav.style.borderBottomColor = '#1e293b';
   }
+});
+
+// ===== MODAL WHATSAPP =====
+const waNumber = '543417849856';
+
+function openModal() {
+  document.getElementById('wa-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('f-nombre').focus(), 100);
+}
+function closeModal() {
+  document.getElementById('wa-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Abrir modal desde TODOS los botones/links de WhatsApp
+document.querySelectorAll('a[href*="wa.me"]').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    openModal();
+  });
+});
+
+// Cerrar con el botón X
+document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+
+// Cerrar al hacer clic fuera del modal
+document.getElementById('wa-modal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// Cerrar con ESC
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// Enviar al WhatsApp
+document.getElementById('btn-send-wa').addEventListener('click', () => {
+  const nombre  = document.getElementById('f-nombre').value.trim();
+  const unidad  = document.getElementById('f-unidad').value;
+  const problema = document.getElementById('f-problema').value;
+  const tiempo  = document.getElementById('f-tiempo').value;
+  const errNombre = document.getElementById('err-nombre');
+  const inputNombre = document.getElementById('f-nombre');
+
+  // Validación
+  if (!nombre) {
+    inputNombre.classList.add('error-field');
+    errNombre.classList.add('visible');
+    inputNombre.focus();
+    return;
+  }
+  inputNombre.classList.remove('error-field');
+  errNombre.classList.remove('visible');
+
+  // Armar mensaje
+  let msg = `Hola ARASAKA, me llamo *${nombre}*.`;
+  if (unidad)   msg += `\n🖥️ *Tipo de unidad:* ${unidad}`;
+  if (problema) msg += `\n⚠️ *Problema:* ${problema}`;
+  if (tiempo)   msg += `\n🕐 *Hace cuánto:* ${tiempo}`;
+  msg += '\n\nMe gustaría consultar sobre la recuperación de mis datos.';
+
+  const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+  closeModal();
 });
 </script>
 </body>
